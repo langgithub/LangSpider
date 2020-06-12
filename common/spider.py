@@ -125,16 +125,129 @@ def http_aop(func):
     return wrapper
 
 
-class Spider(object):
+from abc import ABCMeta, abstractmethod
+from enum import Enum
+from concurrent.futures import ThreadPoolExecutor
 
-    def __init__(self, scheduler=QueueScheduler(), async_status=True):
+class Status(Enum):
+    """控制机器运行状态"""
+    RUNNING = 0
+    PAUSED = 1
+    STOPPED = 2
+
+
+
+class Spider(object):
+    """一个抽象的爬虫，提供最基础的服务"""
+
+    # 爬虫调度器
+    __scheduler = None
+    # middleware 后期扩展中间件
+    __middleware = None
+    # 爬虫状态
+    __status = Status.STOPPED
+
+    def __init__(self, scheduler):
+        self.__schedule = scheduler
+
+    @abstractmethod
+    def engine(self):
+        """
+        爬虫核心
+        1. 包含启动引擎
+        2. 分发工作
+        3. 数据处理
+        :return:
+        """
+        pass
+
+    def set_scheduler(self, scheduler):
+        """
+        设置调度器
+        :param scheduler:
+        :return:
+        """
+        # 获取scheduler 的类型是否是scheduler类型
+        # if scheduler is None:
+        self.__scheduler = scheduler
+        return self
+
+    def add_seed(self, request):
+        """
+        添加种子到调度器
+        :param request:
+        :return:
+        """
+        self.__scheduler.put(request)
+        return self
+
+    @abstractmethod
+    def run(self):
+        pass
+
+    @abstractmethod
+    def pause(self):
+        pass
+
+    @abstractmethod
+    def stop(self):
+        pass
+
+    def get_status(self):
+        return self.__status
+
+    # @status.setter
+    # def status(self, status):
+    #     self.__status = status
+
+    def get_scheduler(self):
+        return self.__scheduler
+
+
+class SyncSpider(Spider):
+
+    def __init__(self, scheduler=QueueScheduler()):
+        super(SyncSpider, self).__init__(scheduler)
+        self.__session = requests.session()
+        # 默认线程数
+        self.__thread_num = 5
+
+    def fetch(self, request):
+        pass
+
+    def engine(self):
+        # 阻塞方式获取任务
+        while True:
+            with ThreadPoolExecutor(max_workers=self.__thread_num) as t:
+                all_task=[]
+                while not self.get_scheduler().empty() and self.get_status() == Status.RUNNING:
+                    request = self.get_scheduler().get()
+                    if request is None:
+                        # 打印日志, 休息一会儿之类
+                        logger.info("当前没有种子")
+                    else:
+                        task = t.submit(self.fetch, request)
+
+
+
+
+    def run(self):
+        pass
+
+    def pause(self):
+        pass
+
+    def stop(self):
+        pass
+
+
+class AsyncSpider(Spider):
+
+    def __init__(self, scheduler=QueueScheduler()):
+        super(AsyncSpider, self).__init__(scheduler)
         self.loop = asyncio.new_event_loop()
-        self.scheduler = scheduler
-        # 异步状态： true为异步
-        self.async_status = async_status
-        # self.cookies = {}
-        self.cookies = RequestsCookieJar()
-        self.requests = requests.session()
+        # cookie池
+        self.__cookies = RequestsCookieJar()
         self.retry = 1
         self.__sleep_time = 0
         self.status = True
