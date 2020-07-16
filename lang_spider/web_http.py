@@ -1,14 +1,9 @@
-# encoding: utf-8
-"""
---------------------------------------
-@describe 
-@version: 1.0
-@project: async_spider
-@file: web_http.py
-@author: yuanlang 
-@time: 2019-01-11 16:22
----------------------------------------
-"""
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# author：yuanlang
+# creat_time: 2020/7/16 上午10:34
+# file: web_http.py
+
 import re
 import time
 from requests.cookies import RequestsCookieJar

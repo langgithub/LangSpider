@@ -1,4 +1,9 @@
-# coding:utf8
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# author：yuanlang
+# creat_time: 2020/7/16 上午10:34
+# file: utils.py
+
 import hashlib
 
 import click

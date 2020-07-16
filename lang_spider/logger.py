@@ -1,13 +1,8 @@
-"""
-@author: xsren 
-@contact: bestrenxs@gmail.com
-@site: xsren.me
-
-@version: 1.0
-@file: logger.py
-@time: 28/11/2017 3:43 PM
-
-"""
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# author：yuanlang
+# creat_time: 2020/7/16 上午10:34
+# file: logger.py
 
 import logging
 

@@ -1,14 +1,9 @@
-# encoding: utf-8
-"""
---------------------------------------
-@describe 核心调度器，调度器可以是queue redis kafka
-@version: 1.0
-@project: async_spider
-@file: scheduler.py
-@author: yuanlang 
-@time: 2019-01-11 17:02
----------------------------------------
-"""
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# author：yuanlang
+# creat_time: 2020/7/16 上午10:34
+# file: scheduler.py
+
 import json
 from lang_spider import utils
 from abc import ABCMeta, abstractmethod

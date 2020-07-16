@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+# author：yuanlang
+# creat_time: 2020/7/16 上午10:34
+# file: consts.py
+
 winUserAgents = [
     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1;.NET CLR 1.1.4322; CIBA; .NET CLR 2.0.50727)",
     "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36",
