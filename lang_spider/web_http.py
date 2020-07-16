@@ -17,43 +17,28 @@ from http.cookiejar import Cookie
 
 class Request(object):
 
-    def __init__(self, url, method,
-                 proxies=None, params=None, data=None, headers={}, ip_proxy=True, json=None, meta=None,
-                 auth=None, timeout=5, allow_redirects=True, get_proxy=None,
-                 hooks=None, stream=None, verify=None, cert=None, description=None,
-                 callback=None, cookies=None, encoding="utf-8", crawler=None):
-        self.method = method
+    def __init__(self, url, method, params=None, data=None, headers=None, cookies=None, files=None, auth=None,
+                 timeout=None, allow_redirects=True, proxies=None, hooks=None, stream=None, verify=None, cert=None,
+                 json=None, callback=None, meta=None, encoding=None):
         self.url = url
+        self.method = method
         self.params = params
         self.data = data
-        self.json = json
         self.headers = headers
-        self.timeout = timeout
-        if callback is None:
-            raise Exception("async callback not allow None,please check!")
-        self.callback = callback
-        self.retry = 0
-        self.get_proxy = get_proxy
-        self.ip_proxy = ip_proxy
-        self.meta = meta
-        if proxies is not None and isinstance(proxies, dict):
-            self.proxies = proxies.get("http", "") if proxies.get("https", "") == "" else proxies.get("https", "")
-        else:
-            self.proxies = proxies
-        self.description = description
         self.cookies = cookies
-        self.encoding = encoding
-        self.crawler = crawler
-
-        User_Agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/71.0.3578.98 Safari/537.36"
-        if self.headers is None:
-            self.headers = {
-                "User-Agent": User_Agent
-            }
-        else:
-            if self.headers.get("User-Agent", "") == "":
-                headers["User-Agent"] = User_Agent
+        self.files = files
+        self.auth = auth
+        self.timeout = timeout
+        self.allow_redirects = allow_redirects
+        self.proxies = proxies
+        self.hooks = hooks
+        self.stream = stream
+        self.verify = verify
+        self.cert = cert
+        self.json = json
+        self.callback = callback
+        self.meta = meta
+        self.encoding =encoding
 
 
 class Response(object):

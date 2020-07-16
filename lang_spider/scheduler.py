@@ -10,7 +10,7 @@
 ---------------------------------------
 """
 import json
-from common import utils
+from lang_spider import utils
 from abc import ABCMeta, abstractmethod
 from queue import Queue
 # from database import kh
