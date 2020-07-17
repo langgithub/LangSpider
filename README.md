@@ -8,3 +8,5 @@
 2. 编译 python setup.py build 
 3. 打包 python setup.py sdist
 4. 安装 python setup.py install
+5. python setup.py sdist bdist_wheel
+6. python -m twine upload dist/*
