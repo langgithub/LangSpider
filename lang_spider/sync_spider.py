@@ -10,10 +10,10 @@ import threading
 import urllib3
 from enum import Enum
 from abc import abstractmethod
-from lang_spider.logger import logger
+from lang_spider.common.logger import logger
 from lang_spider.web_http import Request,Response
 from lang_spider.scheduler import QueueScheduler
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 
 urllib3.disable_warnings()
 
