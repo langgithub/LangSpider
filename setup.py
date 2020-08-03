@@ -7,7 +7,7 @@
 from setuptools import setup
 
 setup(name="LangSpider",
-      version="1.0",
+      version="1.1",
       description="spider module",
       author="yuanlang",
       author_email='15775691981@163.com',
